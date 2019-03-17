@@ -41,7 +41,7 @@
   } else {
     factory(jQuery);
   }
-}(function($) {
+})(function($) {
   "use strict";
 
   var MagneticCardReader = function(element, options) {
@@ -383,16 +383,31 @@
 
   $.fn.magneticCardReader = function(options) {
     options = $.extend({}, $.magneticCardReader.defaultOptions, options);
-    return $(this).data(
-      "magneticCardReader",
-      new MagneticCardReader(this, options)
-    );
+    return this.each(function() {
+       return createInstance($(this), options);
+    });
   };
 
   $.magneticCardReader = function(element, options) {
     options = $.extend({}, $.magneticCardReader.defaultOptions, options);
-    return new MagneticCardReader(element, options);
+    return $(element).each(function() {
+      return createInstance($(this), options);
+    });
   };
+
+  function createInstance(element, options) {
+    if (!hasInstance(element)) {
+      return element.data(
+        "magnetic-card-reader-instance",
+        new MagneticCardReader(element, options)
+      );
+    }
+    return element;
+  }
+  function hasInstance(element) {
+    var instance = element.data("magnetic-card-reader-instance");
+    return instance !== undefined;
+  }
 
   $.magneticCardReader.defaultOptions = {
     animationOnInit: null,
@@ -409,4 +424,4 @@
     styleCursorOnInit: "wait",
     timerLimit: 200
   };
-}, window.jQuery));
+}, window.jQuery);
