@@ -28,5 +28,16 @@
     "input",
     "jquery-plugin"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-uglify": "^4.0.0",
+    "load-grunt-tasks": "^4.0.0"
+  },
+  "scripts": {
+    "test": "grunt test",
+    "build": "grunt build"
+  }
 }
