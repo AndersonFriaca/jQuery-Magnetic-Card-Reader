@@ -10,7 +10,7 @@ module.exports = function(grunt) {
       test: "./test",
       dest: "./dist"
     },
-    pluginName: "<%= pkg.name %>",
+    pluginName: "<%= pkg.name.replace(/-/, \".\") %>",
     license: grunt.file
       .read("LICENSE")
       .split("\n")
@@ -20,7 +20,8 @@ module.exports = function(grunt) {
       "/*!\n" +
       " * <%= pkg.description %> v<%= pkg.version %> " +
       "(<%= pkg.homepage %>)\n" +
-      " * See all contribuitors in <%= pkg.repository.url %>CONTRIBUTORS.md\n\n" +
+      " * See all contribuitors in <%= pkg.repository.url %>" +
+      "blob/master/CONTRIBUTORS.md\n\n" +
       " * <%= pkg.license %> License\n" +
       " * Copyright (c) <%= grunt.template.today(\"yyyy\") %> " +
       "<%= pkg.author.name %>\n" +

@@ -1,6 +1,6 @@
 /*!
- * A jQuery Plugin to read magnetic cards of 1, 2 and 3 trails v1.0.0 (https://github.com/AndersonFriaca/jQuery.Magnetic-Card-Reader/)
- * See all contribuitors in https://github.com/AndersonFriaca/jQuery.Magnetic-Card-Reader/CONTRIBUTORS.md
+ * A jQuery Plugin to read magnetic cards of 1, 2 and 3 trails v1.0.0 (https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader/)
+ * See all contribuitors in https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader/blob/master/CONTRIBUTORS.md
 
  * MIT License
  * Copyright (c) 2019 Anderson Friaça
