@@ -159,6 +159,17 @@
         );
       }
 
+      // Validate event key type to fire the plugin
+      var allowedEventKeyTypes = ["keydown", "keypress", "keyup"];
+      if (
+        this.options.eventKeyType === null ||
+        $.inArray(this.options.eventKeyType, allowedEventKeyTypes) === -1
+      ) {
+        throw new Error(
+          "The value of option eventKeyType must be one of: keydown, keypress or keyup"
+        );
+      }
+
       // Validade RegExp objects
       if (this.options.regExpSecondTrail === null) {
         throw new Error("The option regExpSecondTrail must be provided");
@@ -316,7 +327,7 @@
 
     watchEnterKey: function() {
       var self = this;
-      this.element.on("keyup", function(event) {
+      this.element.on(this.options.eventKeyType, function(event) {
         if (self.pressedEnterKey(event)) {
           self.initTimeout();
           var trail = self.element.val();
@@ -387,6 +398,7 @@
     callback: null,
     colorToHide: "#FFF",
     colorToShow: "",
+    eventKeyType: "keydown",
     regExpFirstTrail: null,
     regExpSecondTrail: null,
     regExpThirdTrail: null,

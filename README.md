@@ -18,6 +18,7 @@ And each of these methods has the same options:
 * `callback` is a **required** function that is triggered at the end of the execution of the plugin containing the data obtained from the card
 * `colorToHide` is a **optional** attribute used to set the color of the input text when the default animation is activated, default value is `"#FFF`
 * `colorToHide` is a **optional** attribute used to set the color of the input text when the default animation is completed, default value is `""`
+* `eventKeyType` is a **optional** attribute use to fire the plugin, default value is `keyup`, other possible values is: `keydown` and `keypress`
 * `regExpFirstTrail` is a **optional** attribute used to capture the value of first trail including the initial and end characters, this value must be a object of type **RegExp**
 * `regExpSecondTrail` is a **required** attribute used to capture the value of second trail including the initial and end characters, this value must be a object of type **RegExp**
 * `regExpThirdTrail` is a **optional** attribute used to capture the value of third trail including the initial and end characters, this value must be a object of type **RegExp**
