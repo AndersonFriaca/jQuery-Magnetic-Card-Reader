@@ -25,7 +25,6 @@ And each of these methods has the same options:
 * `styleCursorOnInit` is a **optional** attribute used to set the style of cursor pointer when the default animation is activated, default value is `"wait"`
 * `timerLimit` is a **optional** attribute used to define a timer limit of capturation on each trail
 
----
-## Contributors
+# Contributors
  * [Anderson Friaça](https://github.com/AndersonFriaca)
  * [Christoffer Genova](https://github.com/ChristofferGenova)
