@@ -81,8 +81,8 @@
     },
 
     init: function() {
-      this.parentForm = this.searchParentForm();
       this.validateOptions();
+      this.parentForm = this.searchParentForm();
       this.binds();
       this.blockSubmitFormFromElement();
       this.watchEnterKey();
@@ -141,9 +141,9 @@
     },
 
     searchParentForm: function() {
-      var form = this.element.parent('form')[0];
+      var form = this.element.parent('form');
       if (form.length) {
-        return $(form);
+        return form;
       }
       return null;
     },
@@ -153,7 +153,7 @@
       if (!this.isInputElement(this.element)) {
         throw new Error('This plugin can be used only with input text');
       }
-      if (this.parentForm === null) {
+      if (this.searchParentForm() === null) {
         throw new Error(
           'Can not initialize MagneticCardReader plugin, must be have an parent form'
         );
@@ -194,6 +194,9 @@
       }
 
       // Validate functions
+      if (this.options.callback === null) {
+        throw new Error('The option callback must be provided');
+      }
       if (!this.isFunction(this.options.callback)) {
         throw new Error('The option callback must be a function');
       }
@@ -210,10 +213,10 @@
         throw new Error('The options buildDataSecondTrail must be a function');
       }
       if (
-        this.options.buildDataSecondTrail !== null &&
-        !this.isFunction(this.options.buildDataSecondTrail)
+        this.options.buildDataThirdTrail !== null &&
+        !this.isFunction(this.options.buildDataThirdTrail)
       ) {
-        throw new Error('The options buildDataSecondTrail must be a function');
+        throw new Error('The options buildDataThirdTrail must be a function');
       }
 
       // Validate animations
