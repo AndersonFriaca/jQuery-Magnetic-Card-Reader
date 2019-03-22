@@ -8,7 +8,7 @@
   "immed": true,
   "indent": 2,
   "noarg": true,
-  "quotmark": "double",
+  "quotmark": "single",
   "smarttabs": true,
   "trailing": true,
   "undef": true,
@@ -17,6 +17,8 @@
     "define": false,
     "module": false,
     "require": false,
-    "window": false
+    "window": false,
+    "$": false,
+    "QUnit": false
   }
 }

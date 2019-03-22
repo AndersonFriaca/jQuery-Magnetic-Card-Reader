@@ -1,0 +1,45 @@
+{
+  "name": "jquery-magnetic-card-reader",
+  "version": "1.0.0-alpha.0",
+  "description": "A jQuery Plugin to read magnetic cards of 1, 2 and 3 trails",
+  "main": "./dist/jquery.magnetic-card-reader.js",
+  "authors": [
+    {
+      "name": "Anderson Friaça",
+      "homepage": "https://github.com/AndersonFriaca"
+    }
+  ],
+  "license": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader/blob/master/LICENSE"
+    }
+  ],
+  "keywords": [
+    "magnetic",
+    "card",
+    "reader",
+    "input",
+    "jquery-plugin"
+  ],
+  "homepage": "https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader",
+  "ignore": [
+    "**/.*",
+    "src",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "Gruntfile.js"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "devDependencies": {
+    "jquery": ">=1.7",
+    "jquery-3.1": "jquery#~3.1",
+    "jquery-1.7": "jquery#~1.7",
+    "sinon": "^7.2.7",
+    "qunit": "^2.9.2"
+  }
+}

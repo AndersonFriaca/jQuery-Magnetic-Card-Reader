@@ -1,0 +1,6 @@
+{
+  "jquery": ["test/vendor/jquery/dist/jquery.min.js"],
+  "jquery-1.7": ["test/vendor/jquery-1.7/jquery.min.js"],
+  "jquery-3.1": ["test/vendor/jquery-3.1/dist/jquery.min.js"],
+  "requirejs": "test/integration/karma.conf.js"
+}

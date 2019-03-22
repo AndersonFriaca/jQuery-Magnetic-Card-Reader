@@ -1,5 +1,5 @@
 /*!
- * A jQuery Plugin to read magnetic cards of 1, 2 and 3 trails v1.0.0 (https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader/)
+ * A jQuery Plugin to read magnetic cards of 1, 2 and 3 trails v1.0.0-alpha.0 (https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader/)
  * See all contribuitors in https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader/blob/master/CONTRIBUTORS.md
 
  * MIT License
@@ -160,7 +160,7 @@
                 throw new Error("This plugin can be used only with input text");
             }
             if (this.parentForm === null) {
-                throw new Error("Can't initialize MagneticCardReader plugin, must be have an parent form");
+                throw new Error("Can not initialize MagneticCardReader plugin, must be have an parent form");
             }
             var allowedEventKeyTypes = [ "keydown", "keypress", "keyup" ];
             if (this.options.eventKeyType === null || $.inArray(this.options.eventKeyType, allowedEventKeyTypes) === -1) {
@@ -170,13 +170,13 @@
                 throw new Error("The option regExpSecondTrail must be provided");
             }
             if (this.options.regExpFirstTrail !== null && !this.isRegExp(this.options.regExpFirstTrail)) {
-                throw new Error("The option regExpFirstTrail isn't a RegExp");
+                throw new Error("The option regExpFirstTrail is not a RegExp");
             }
             if (this.options.regExpSecondTrail !== null && !this.isRegExp(this.options.regExpSecondTrail)) {
-                throw new Error("The option regExpSecondTrail isn't a RegExp");
+                throw new Error("The option regExpSecondTrail is not a RegExp");
             }
             if (this.options.regExpThirdTrail !== null && !this.isRegExp(this.options.regExpThirdTrail)) {
-                throw new Error("The option regExpThirdTrail isn't a RegExp");
+                throw new Error("The option regExpThirdTrail is not a RegExp");
             }
             if (!this.isFunction(this.options.callback)) {
                 throw new Error("The option callback must be a function");
