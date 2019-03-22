@@ -31,7 +31,7 @@
     var element = createDefaultInstance();
     element.on(getInstance(element).generateEventName('test'), callback);
     getInstance(element).dispatchEvent('test', true);
-    assert.ok(callback.callCount === 1);
+    assert.ok(callback.called);
   });
 
   QUnit.test('Should be able to clear informations of captured data', function(
@@ -55,7 +55,7 @@
     assert
   ) {
     assert.equal(
-      getInstance().captureTrail(defaultRegex, 'ç01234567890=123=1=12?'),
+      getInstance().captureTrail(defaultRegex, 'a01234567890=123=1=12?'),
       null
     );
   });
@@ -70,11 +70,11 @@
     var eventEnterKey = new Event('keypress');
     eventEnterKey.keyCode = 13;
     eventEnterKey.which = 13;
-    assert.ok(getInstance().pressedEnterKey(eventEnterKey));
+    assert.ok(getInstance().isPressedEnterKey(eventEnterKey));
 
     var anotherKey = new Event('keypress');
     anotherKey.keyCode = 50;
     anotherKey.which = 50;
-    assert.notOk(getInstance().pressedEnterKey(anotherKey));
+    assert.notOk(getInstance().isPressedEnterKey(anotherKey));
   });
 })();

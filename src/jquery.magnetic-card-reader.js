@@ -47,8 +47,9 @@
       var self = this;
       this.parentForm.on('submit', function(event) {
         if (
+          event.originalEvent !== undefined &&
           event.originalEvent.explicitOriginalTarget === self.element.get(0)
-        ) {
+          ) {
           event.preventDefault();
           return false;
         }
@@ -123,18 +124,18 @@
       return element.is('input:text');
     },
 
-    isRegExp: function(value) {
-      if (value === null || value === undefined) {
-        return false;
-      }
-      if (typeof value === 'object' && value.constructor.name === 'RegExp') {
+    isPressedEnterKey: function(event) {
+      if (event.keyCode === 13 || event.which === 13) {
         return true;
       }
       return false;
     },
 
-    pressedEnterKey: function(event) {
-      if (event.keyCode === 13 || event.which === 13) {
+    isRegExp: function(value) {
+      if (value === null || value === undefined) {
+        return false;
+      }
+      if (typeof value === 'object' && value.constructor.name === 'RegExp') {
         return true;
       }
       return false;
@@ -331,7 +332,7 @@
     watchEnterKey: function() {
       var self = this;
       this.element.on(this.options.eventKeyType, function(event) {
-        if (self.pressedEnterKey(event)) {
+        if (self.isPressedEnterKey(event)) {
           self.initTimeout();
           var trail = self.element.val();
           if (
