@@ -60,6 +60,15 @@
     );
   });
 
+  QUnit.test('Should be able to return null on invalid regex for trail', function(
+    assert
+  ) {
+    assert.equal(
+      getInstance().captureTrail(new RegExp(/(;(\d{4}-\d{2})\?)$/), 'a01234567890=123=1=12?'),
+      null
+    );
+  });
+
   QUnit.test('Is RegExp', function(assert) {
     assert.ok(getInstance().isRegExp(defaultRegex));
     assert.notOk(getInstance().isRegExp(null));

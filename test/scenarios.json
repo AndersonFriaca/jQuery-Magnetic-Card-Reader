@@ -1,6 +1,14 @@
 {
-  "jquery": ["test/vendor/jquery/dist/jquery.min.js"],
   "jquery-1.7": ["test/vendor/jquery-1.7/jquery.min.js"],
+  "jquery-1.8": ["test/vendor/jquery-1.8/jquery.min.js"],
+  "jquery-1.9": ["test/vendor/jquery-1.9/jquery.min.js"],
+  "jquery-1.10": ["test/vendor/jquery-1.10/jquery.min.js"],
+  "jquery-1.11": ["test/vendor/jquery-1.11/dist/jquery.min.js"],
+  "jquery-2.0": ["test/vendor/jquery-2.0/jquery.min.js"],
+  "jquery-2.1": ["test/vendor/jquery-2.1/dist/jquery.min.js"],
+  "jquery-2.2": ["test/vendor/jquery-2.2/dist/jquery.min.js"],
+  "jquery-3.0": ["test/vendor/jquery-3.0/dist/jquery.min.js"],
   "jquery-3.1": ["test/vendor/jquery-3.1/dist/jquery.min.js"],
+  "jquery": ["test/vendor/jquery/dist/jquery.min.js"],
   "requirejs": "test/integration/karma.conf.js"
 }

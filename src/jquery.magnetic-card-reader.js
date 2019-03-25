@@ -49,7 +49,7 @@
         if (
           event.originalEvent !== undefined &&
           event.originalEvent.explicitOriginalTarget === self.element.get(0)
-          ) {
+        ) {
           event.preventDefault();
           return false;
         }
@@ -58,10 +58,11 @@
 
     captureTrail: function(regexp, sentence) {
       var match = sentence.match(regexp);
-      if (match[1] !== undefined) {
+      if (match === null || match[1] === undefined) {
+        return null;
+      } else {
         return match[1];
       }
-      return null;
     },
 
     clearInformations: function() {
@@ -335,29 +336,41 @@
         if (self.isPressedEnterKey(event)) {
           self.initTimeout();
           var trail = self.element.val();
+          var captured = false;
           if (
             self.captured.firstTrail === null &&
-            self.options.regExpFirstTrail !== null
+            self.options.regExpFirstTrail !== null &&
+            !captured
           ) {
             self.captured.firstTrail = self.captureTrail(
               self.options.regExpFirstTrail,
               trail
             );
+            if (self.captured.firstTrail !== null) {
+              captured = true;
+            }
           }
-          if (self.captured.secondTrail === null) {
+          if (self.captured.secondTrail === null && !captured) {
             self.captured.secondTrail = self.captureTrail(
               self.options.regExpSecondTrail,
               trail
             );
+            if (self.captured.secondTrail !== null) {
+              captured = true;
+            }
           }
           if (
             self.captured.thirdTrail === null &&
-            self.options.regExpThirdTrail !== null
+            self.options.regExpThirdTrail !== null &&
+            !captured
           ) {
             self.captured.thirdTrail = self.captureTrail(
               self.options.regExpThirdTrail,
               trail
             );
+            if (self.captured.thirdTrail !== null) {
+              captured = true;
+            }
           }
           self.element.val('');
         }

@@ -14,7 +14,7 @@
   QUnit.test('Should be able to create instance from a element', function(
     assert
   ) {
-    assert.ok(createDefaultInstance()[0] === $('#card')[0]);
+    assert.equal(createDefaultInstance()[0], $('#card')[0]);
   });
 
   QUnit.test(
@@ -32,7 +32,7 @@
   QUnit.test(
     'Should be able to create a unique instance on each element',
     function(assert) {
-      assert.ok(createDefaultInstance()[0] === createDefaultInstance()[0]);
+      assert.equal(createDefaultInstance()[0], createDefaultInstance()[0]);
     }
   );
 })();

@@ -19,6 +19,7 @@
     "require": false,
     "window": false,
     "$": false,
-    "QUnit": false
+    "QUnit": false,
+    "sinon": false
   }
 }
