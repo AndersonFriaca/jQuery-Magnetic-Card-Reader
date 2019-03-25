@@ -91,7 +91,6 @@ module.exports = function(grunt) {
         var taskName = 'karma.scenario_' + scenario.replace(/[\._-]/g, '_');
         var generatedConfiguration = {
           logLevel: 'OFF'
-          //reporters: "dots"
         };
         if (Array.isArray(scenarioFiles)) {
           generatedConfiguration.options = {
