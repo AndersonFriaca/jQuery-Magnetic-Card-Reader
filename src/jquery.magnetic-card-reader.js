@@ -1,15 +1,15 @@
 (function(factory, jQuery) {
-  "use strict";
+  'use strict';
 
-  if (typeof define === "function" && define.amd) {
-    define(["jquery"], factory);
-  } else if (typeof exports === "object") {
-    module.exports = factory(require("jquery"));
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory(require('jquery'));
   } else {
     factory(jQuery);
   }
 })(function($) {
-  "use strict";
+  'use strict';
 
   var MagneticCardReader = function(element, options) {
     this.captured = {
@@ -28,12 +28,12 @@
 
   $.extend(MagneticCardReader.prototype, {
     animationOnCompleteDefault: function() {
-      this.element.css("color", this.options.colorToShow);
-      this.element.css("cursor", "auto");
+      this.element.css('color', this.options.colorToShow);
+      this.element.css('cursor', 'auto');
     },
     animationOnInitDefault: function() {
-      this.element.css("color", this.options.colorToHide);
-      this.element.css("cursor", this.options.styleCursorOnInit);
+      this.element.css('color', this.options.colorToHide);
+      this.element.css('cursor', this.options.styleCursorOnInit);
     },
     binds: function() {
       this.animationOnInitDefault.bind(this);
@@ -45,8 +45,9 @@
 
     blockSubmitFormFromElement: function() {
       var self = this;
-      this.parentForm.on("submit", function(event) {
+      this.parentForm.on('submit', function(event) {
         if (
+          event.originalEvent !== undefined &&
           event.originalEvent.explicitOriginalTarget === self.element.get(0)
         ) {
           event.preventDefault();
@@ -57,10 +58,11 @@
 
     captureTrail: function(regexp, sentence) {
       var match = sentence.match(regexp);
-      if (match[1] !== undefined) {
+      if (match === null || match[1] === undefined) {
+        return null;
+      } else {
         return match[1];
       }
-      return null;
     },
 
     clearInformations: function() {
@@ -77,12 +79,12 @@
     },
 
     generateEventName: function(eventName) {
-      return eventName + ".magnetic-card-reader";
+      return eventName + '.magnetic-card-reader';
     },
 
     init: function() {
-      this.parentForm = this.searchParentForm();
       this.validateOptions();
+      this.parentForm = this.searchParentForm();
       this.binds();
       this.blockSubmitFormFromElement();
       this.watchEnterKey();
@@ -101,7 +103,7 @@
         clearTimeout(this.timer);
       }
       this.timer = setTimeout(function() {
-        self.dispatchEvent("completed", self.captured);
+        self.dispatchEvent('completed', self.captured);
         if (self.options.animationOnComplete !== null) {
           self.options.animationOnComplete();
         } else {
@@ -116,34 +118,34 @@
     },
 
     isFunction: function(value) {
-      return value && {}.toString.call(value) === "[object Function]";
+      return value && {}.toString.call(value) === '[object Function]';
     },
 
     isInputElement: function(element) {
-      return element.is("input:text");
+      return element.is('input:text');
     },
 
-    isRegExp: function(value) {
-      if (value === null || value === undefined) {
-        return false;
-      }
-      if (typeof value === "object" && value.constructor.name === "RegExp") {
-        return true;
-      }
-      return false;
-    },
-
-    pressedEnterKey: function(event) {
+    isPressedEnterKey: function(event) {
       if (event.keyCode === 13 || event.which === 13) {
         return true;
       }
       return false;
     },
 
+    isRegExp: function(value) {
+      if (value === null || value === undefined) {
+        return false;
+      }
+      if (typeof value === 'object' && value.constructor.name === 'RegExp') {
+        return true;
+      }
+      return false;
+    },
+
     searchParentForm: function() {
-      var form = this.element.parent("form")[0];
+      var form = this.element.parent('form');
       if (form.length) {
-        return $(form);
+        return form;
       }
       return null;
     },
@@ -151,69 +153,72 @@
     validateOptions: function() {
       // Validate elements
       if (!this.isInputElement(this.element)) {
-        throw new Error("This plugin can be used only with input text");
+        throw new Error('This plugin can be used only with input text');
       }
-      if (this.parentForm === null) {
+      if (this.searchParentForm() === null) {
         throw new Error(
-          "Can't initialize MagneticCardReader plugin, must be have an parent form"
+          'Can not initialize MagneticCardReader plugin, must be have an parent form'
         );
       }
 
       // Validate event key type to fire the plugin
-      var allowedEventKeyTypes = ["keydown", "keypress", "keyup"];
+      var allowedEventKeyTypes = ['keydown', 'keypress', 'keyup'];
       if (
         this.options.eventKeyType === null ||
         $.inArray(this.options.eventKeyType, allowedEventKeyTypes) === -1
       ) {
         throw new Error(
-          "The value of option eventKeyType must be one of: keydown, keypress or keyup"
+          'The value of option eventKeyType must be one of: keydown, keypress or keyup'
         );
       }
 
       // Validade RegExp objects
       if (this.options.regExpSecondTrail === null) {
-        throw new Error("The option regExpSecondTrail must be provided");
+        throw new Error('The option regExpSecondTrail must be provided');
       }
       if (
         this.options.regExpFirstTrail !== null &&
         !this.isRegExp(this.options.regExpFirstTrail)
       ) {
-        throw new Error("The option regExpFirstTrail isn't a RegExp");
+        throw new Error('The option regExpFirstTrail is not a RegExp');
       }
       if (
         this.options.regExpSecondTrail !== null &&
         !this.isRegExp(this.options.regExpSecondTrail)
       ) {
-        throw new Error("The option regExpSecondTrail isn't a RegExp");
+        throw new Error('The option regExpSecondTrail is not a RegExp');
       }
       if (
         this.options.regExpThirdTrail !== null &&
         !this.isRegExp(this.options.regExpThirdTrail)
       ) {
-        throw new Error("The option regExpThirdTrail isn't a RegExp");
+        throw new Error('The option regExpThirdTrail is not a RegExp');
       }
 
       // Validate functions
+      if (this.options.callback === null) {
+        throw new Error('The option callback must be provided');
+      }
       if (!this.isFunction(this.options.callback)) {
-        throw new Error("The option callback must be a function");
+        throw new Error('The option callback must be a function');
       }
       if (
         this.options.buildDataFirstTrail !== null &&
         !this.isFunction(this.options.buildDataFirstTrail)
       ) {
-        throw new Error("The options buildDataFirstTrail must be a function");
+        throw new Error('The options buildDataFirstTrail must be a function');
       }
       if (
         this.options.buildDataSecondTrail !== null &&
         !this.isFunction(this.options.buildDataSecondTrail)
       ) {
-        throw new Error("The options buildDataSecondTrail must be a function");
+        throw new Error('The options buildDataSecondTrail must be a function');
       }
       if (
-        this.options.buildDataSecondTrail !== null &&
-        !this.isFunction(this.options.buildDataSecondTrail)
+        this.options.buildDataThirdTrail !== null &&
+        !this.isFunction(this.options.buildDataThirdTrail)
       ) {
-        throw new Error("The options buildDataSecondTrail must be a function");
+        throw new Error('The options buildDataThirdTrail must be a function');
       }
 
       // Validate animations
@@ -221,60 +226,60 @@
         this.options.animationOnInit !== null &&
         !this.isFunction(this.options.animationOnInit)
       ) {
-        throw new Error("The option animationOnInit must be a function");
+        throw new Error('The option animationOnInit must be a function');
       }
       if (
         this.options.animationOnComplete !== null &&
         !this.isFunction(this.options.animationOnComplete)
       ) {
-        throw new Error("The option animationOnComplete must be a function");
+        throw new Error('The option animationOnComplete must be a function');
       }
 
       // Validate another options
       if (
         this.options.colorToHide === null ||
-        typeof this.options.colorToHide !== "string" ||
-        (this.options.colorToHide !== "" &&
+        typeof this.options.colorToHide !== 'string' ||
+        (this.options.colorToHide !== '' &&
           !this.isColor(this.options.colorToHide))
       ) {
         throw new Error(
-          "The option colorToHide must be a valid color or empty string"
+          'The option colorToHide must be a valid color or empty string'
         );
       }
       if (
         this.options.colorToShow === null ||
-        typeof this.options.colorToShow !== "string" ||
-        (this.options.colorToShow !== "" &&
+        typeof this.options.colorToShow !== 'string' ||
+        (this.options.colorToShow !== '' &&
           !this.isColor(this.options.colorToShow))
       ) {
         throw new Error(
-          "The option colorToShow must be a valid color or empty string"
+          'The option colorToShow must be a valid color or empty string'
         );
       }
       if (
         this.options.styleCursorOnInit === null ||
-        typeof this.options.styleCursorOnInit !== "string"
+        typeof this.options.styleCursorOnInit !== 'string'
       ) {
-        throw new Error("The option styleCursorOnInit must be a string");
+        throw new Error('The option styleCursorOnInit must be a string');
       }
       if (
         this.options.timerLimit === null ||
         !/^\+?(0|[1-9]\d*)$/.test(this.options.timerLimit)
       ) {
-        throw new Error("The option timerLimit must be a number");
+        throw new Error('The option timerLimit must be a number');
       }
     },
 
     watchCallback: function() {
       this.element.on(
-        this.generateEventName("callback"),
+        this.generateEventName('callback'),
         this.options.callback
       );
     },
 
     watchCompleted: function() {
       var self = this;
-      this.element.on(this.generateEventName("completed"), function(
+      this.element.on(this.generateEventName('completed'), function(
         event,
         captured
       ) {
@@ -317,7 +322,7 @@
           captured: captured.thirdTrail,
           data: dataThirdTrail
         };
-        self.dispatchEvent("callback", [
+        self.dispatchEvent('callback', [
           firstTrailResponse,
           secondTrailResponse,
           thirdTrailResponse
@@ -328,34 +333,46 @@
     watchEnterKey: function() {
       var self = this;
       this.element.on(this.options.eventKeyType, function(event) {
-        if (self.pressedEnterKey(event)) {
+        if (self.isPressedEnterKey(event)) {
           self.initTimeout();
           var trail = self.element.val();
+          var captured = false;
           if (
             self.captured.firstTrail === null &&
-            self.options.regExpFirstTrail !== null
+            self.options.regExpFirstTrail !== null &&
+            !captured
           ) {
             self.captured.firstTrail = self.captureTrail(
               self.options.regExpFirstTrail,
               trail
             );
+            if (self.captured.firstTrail !== null) {
+              captured = true;
+            }
           }
-          if (self.captured.secondTrail === null) {
+          if (self.captured.secondTrail === null && !captured) {
             self.captured.secondTrail = self.captureTrail(
               self.options.regExpSecondTrail,
               trail
             );
+            if (self.captured.secondTrail !== null) {
+              captured = true;
+            }
           }
           if (
             self.captured.thirdTrail === null &&
-            self.options.regExpThirdTrail !== null
+            self.options.regExpThirdTrail !== null &&
+            !captured
           ) {
             self.captured.thirdTrail = self.captureTrail(
               self.options.regExpThirdTrail,
               trail
             );
+            if (self.captured.thirdTrail !== null) {
+              captured = true;
+            }
           }
-          self.element.val("");
+          self.element.val('');
         }
       });
     }
@@ -378,14 +395,14 @@
   function createInstance(element, options) {
     if (!hasInstance(element)) {
       return element.data(
-        "magnetic-card-reader-instance",
+        'magnetic-card-reader-instance',
         new MagneticCardReader(element, options)
       );
     }
     return element;
   }
   function hasInstance(element) {
-    var instance = element.data("magnetic-card-reader-instance");
+    var instance = element.data('magnetic-card-reader-instance');
     return instance !== undefined;
   }
 
@@ -396,13 +413,13 @@
     buildDataSecondTrail: null,
     buildDataThirdTrail: null,
     callback: null,
-    colorToHide: "#FFF",
-    colorToShow: "",
-    eventKeyType: "keydown",
+    colorToHide: '#FFF',
+    colorToShow: '',
+    eventKeyType: 'keydown',
     regExpFirstTrail: null,
     regExpSecondTrail: null,
     regExpThirdTrail: null,
-    styleCursorOnInit: "wait",
+    styleCursorOnInit: 'wait',
     timerLimit: 200
   };
 }, window.jQuery);

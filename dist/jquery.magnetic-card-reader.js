@@ -1,5 +1,5 @@
 /*!
- * A jQuery Plugin to read magnetic cards of 1, 2 and 3 trails v1.0.0 (https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader/)
+ * A jQuery Plugin to read magnetic cards of 1, 2 and 3 trails v1.0.0-alpha.1 (https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader/)
  * See all contribuitors in https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader/blob/master/CONTRIBUTORS.md
 
  * MIT License
@@ -68,7 +68,7 @@
         blockSubmitFormFromElement: function() {
             var self = this;
             this.parentForm.on("submit", function(event) {
-                if (event.originalEvent.explicitOriginalTarget === self.element.get(0)) {
+                if (event.originalEvent !== undefined && event.originalEvent.explicitOriginalTarget === self.element.get(0)) {
                     event.preventDefault();
                     return false;
                 }
@@ -76,10 +76,11 @@
         },
         captureTrail: function(regexp, sentence) {
             var match = sentence.match(regexp);
-            if (match[1] !== undefined) {
+            if (match === null || match[1] === undefined) {
+                return null;
+            } else {
                 return match[1];
             }
-            return null;
         },
         clearInformations: function() {
             this.captured = {
@@ -96,8 +97,8 @@
             return eventName + ".magnetic-card-reader";
         },
         init: function() {
-            this.parentForm = this.searchParentForm();
             this.validateOptions();
+            this.parentForm = this.searchParentForm();
             this.binds();
             this.blockSubmitFormFromElement();
             this.watchEnterKey();
@@ -133,6 +134,12 @@
         isInputElement: function(element) {
             return element.is("input:text");
         },
+        isPressedEnterKey: function(event) {
+            if (event.keyCode === 13 || event.which === 13) {
+                return true;
+            }
+            return false;
+        },
         isRegExp: function(value) {
             if (value === null || value === undefined) {
                 return false;
@@ -142,16 +149,10 @@
             }
             return false;
         },
-        pressedEnterKey: function(event) {
-            if (event.keyCode === 13 || event.which === 13) {
-                return true;
-            }
-            return false;
-        },
         searchParentForm: function() {
-            var form = this.element.parent("form")[0];
+            var form = this.element.parent("form");
             if (form.length) {
-                return $(form);
+                return form;
             }
             return null;
         },
@@ -159,8 +160,8 @@
             if (!this.isInputElement(this.element)) {
                 throw new Error("This plugin can be used only with input text");
             }
-            if (this.parentForm === null) {
-                throw new Error("Can't initialize MagneticCardReader plugin, must be have an parent form");
+            if (this.searchParentForm() === null) {
+                throw new Error("Can not initialize MagneticCardReader plugin, must be have an parent form");
             }
             var allowedEventKeyTypes = [ "keydown", "keypress", "keyup" ];
             if (this.options.eventKeyType === null || $.inArray(this.options.eventKeyType, allowedEventKeyTypes) === -1) {
@@ -170,13 +171,16 @@
                 throw new Error("The option regExpSecondTrail must be provided");
             }
             if (this.options.regExpFirstTrail !== null && !this.isRegExp(this.options.regExpFirstTrail)) {
-                throw new Error("The option regExpFirstTrail isn't a RegExp");
+                throw new Error("The option regExpFirstTrail is not a RegExp");
             }
             if (this.options.regExpSecondTrail !== null && !this.isRegExp(this.options.regExpSecondTrail)) {
-                throw new Error("The option regExpSecondTrail isn't a RegExp");
+                throw new Error("The option regExpSecondTrail is not a RegExp");
             }
             if (this.options.regExpThirdTrail !== null && !this.isRegExp(this.options.regExpThirdTrail)) {
-                throw new Error("The option regExpThirdTrail isn't a RegExp");
+                throw new Error("The option regExpThirdTrail is not a RegExp");
+            }
+            if (this.options.callback === null) {
+                throw new Error("The option callback must be provided");
             }
             if (!this.isFunction(this.options.callback)) {
                 throw new Error("The option callback must be a function");
@@ -187,8 +191,8 @@
             if (this.options.buildDataSecondTrail !== null && !this.isFunction(this.options.buildDataSecondTrail)) {
                 throw new Error("The options buildDataSecondTrail must be a function");
             }
-            if (this.options.buildDataSecondTrail !== null && !this.isFunction(this.options.buildDataSecondTrail)) {
-                throw new Error("The options buildDataSecondTrail must be a function");
+            if (this.options.buildDataThirdTrail !== null && !this.isFunction(this.options.buildDataThirdTrail)) {
+                throw new Error("The options buildDataThirdTrail must be a function");
             }
             if (this.options.animationOnInit !== null && !this.isFunction(this.options.animationOnInit)) {
                 throw new Error("The option animationOnInit must be a function");
@@ -245,17 +249,27 @@
         watchEnterKey: function() {
             var self = this;
             this.element.on(this.options.eventKeyType, function(event) {
-                if (self.pressedEnterKey(event)) {
+                if (self.isPressedEnterKey(event)) {
                     self.initTimeout();
                     var trail = self.element.val();
-                    if (self.captured.firstTrail === null && self.options.regExpFirstTrail !== null) {
+                    var captured = false;
+                    if (self.captured.firstTrail === null && self.options.regExpFirstTrail !== null && !captured) {
                         self.captured.firstTrail = self.captureTrail(self.options.regExpFirstTrail, trail);
+                        if (self.captured.firstTrail !== null) {
+                            captured = true;
+                        }
                     }
-                    if (self.captured.secondTrail === null) {
+                    if (self.captured.secondTrail === null && !captured) {
                         self.captured.secondTrail = self.captureTrail(self.options.regExpSecondTrail, trail);
+                        if (self.captured.secondTrail !== null) {
+                            captured = true;
+                        }
                     }
-                    if (self.captured.thirdTrail === null && self.options.regExpThirdTrail !== null) {
+                    if (self.captured.thirdTrail === null && self.options.regExpThirdTrail !== null && !captured) {
                         self.captured.thirdTrail = self.captureTrail(self.options.regExpThirdTrail, trail);
+                        if (self.captured.thirdTrail !== null) {
+                            captured = true;
+                        }
                     }
                     self.element.val("");
                 }

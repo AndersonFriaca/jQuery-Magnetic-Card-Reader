@@ -1,6 +1,6 @@
 {
   "name": "jquery-magnetic-card-reader",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "A jQuery Plugin to read magnetic cards of 1, 2 and 3 trails",
   "author": {
     "name": "Anderson Friaça",
@@ -29,12 +29,27 @@
     "jquery-plugin"
   ],
   "license": "MIT",
+  "files": [
+    "dist",
+    "src"
+  ],
   "devDependencies": {
     "grunt": "^1.0.3",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-qunit": "^3.1.0",
     "grunt-contrib-uglify": "^4.0.0",
-    "load-grunt-tasks": "^4.0.0"
+    "grunt-karma": "^3.0.1",
+    "karma": "^4.0.1",
+    "karma-coverage": "^1.1.2",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-qunit": "^3.0.0",
+    "karma-requirejs": "^1.1.0",
+    "karma-sinon": "^1.0.5",
+    "load-grunt-tasks": "^4.0.0",
+    "qunit": "^2.9.2",
+    "requirejs": "^2.3.6",
+    "sinon": "^7.3.0"
   },
   "scripts": {
     "test": "grunt test",
