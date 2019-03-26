@@ -1,6 +1,8 @@
 # jQuery Magnetic Card Reader
 A jQuery Plugin to read magnetic cards of 1, 2 and 3 trails.
 
+[![Build Status](https://travis-ci.org/AndersonFriaca/jQuery-Magnetic-Card-Reader.svg?branch=master)](https://travis-ci.org/AndersonFriaca/jQuery-Magnetic-Card-Reader)
+
 # How to use
 
 There are numbers of way to use this plugin:
