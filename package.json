@@ -29,6 +29,10 @@
     "jquery-plugin"
   ],
   "license": "MIT",
+  "files": [
+    "dist",
+    "src"
+  ],
   "devDependencies": {
     "grunt": "^1.0.3",
     "grunt-contrib-clean": "^2.0.0",
