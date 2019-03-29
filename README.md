@@ -3,8 +3,8 @@
 A jQuery Plugin to read magnetic cards of 1, 2 and 3 trails.
 
 [![Build Status](https://travis-ci.org/AndersonFriaca/jQuery-Magnetic-Card-Reader.svg?branch=master)](https://travis-ci.org/AndersonFriaca/jQuery-Magnetic-Card-Reader)
-[![NPM Version](https://img.shields.io/npm/v/jquery-magnetic-card-reader.svg)](https://img.shields.io/npm/v/jquery-magnetic-card-reader.svg)
-[![Bower Version](https://img.shields.io/bower/v/jquery-magnetic-card-reader.svg)](https://img.shields.io/bower/v/jquery-magnetic-card-reader.svg)
+[![NPM Version](https://img.shields.io/npm/v/jquery-magnetic-card-reader.svg)](https://www.npmjs.com/package/jquery-magnetic-card-reader)
+[![Bower Version](https://img.shields.io/bower/v/jquery-magnetic-card-reader.svg)](https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader/)
 
 # Install it via Package Managers
 
