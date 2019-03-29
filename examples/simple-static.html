@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="author" content="Anderson Friaça, Christoffer Genova">
+    <meta name="author" content="Anderson Friaça, Christoffer Genova" />
     <title>Magnetic Card Reader</title>
   </head>
   <body>
@@ -17,23 +17,32 @@
       <br />
       <button type="submit">Send</button>
     </form>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="../src/jquery.magnetic-card-reader.js"></script>
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-1.7.2.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../src/jquery.magnetic-card-reader.js"
+    ></script>
     <script type="text/javascript">
-      $("#card").magneticCardReader({
+      $.magneticCardReader($('#card'), {
         regExpSecondTrail: new RegExp(/(;(\d{11,16})=\d{1,}=\d{1}=\d{2}\?)?$/),
-        buildDataSecondTrail: function(trail){
-          var pattern =  new RegExp(/(?:;(\d{11,16})=\d{1,}=\d{1}=\d{2}\?)?$/);
+        buildDataSecondTrail: function(trail) {
+          var pattern = new RegExp(/(?:;(\d{11,16})=\d{1,}=\d{1}=\d{2}\?)?$/);
           var match = trail.match(pattern);
-          if (match[1] !== undefined) {
+          if (match === null || match[1] === undefined) {
+            return null;
+          } else {
             return match[1];
           }
-          return null;
         },
-        callback: function(e, first, second, third){
-          $(this).val(second.data);
+        callback: function(e, first, second, third) {
+          console.log(second);
         }
-      }).focus().val("");
+      })
+        .focus()
+        .val('');
     </script>
   </body>
 </html>

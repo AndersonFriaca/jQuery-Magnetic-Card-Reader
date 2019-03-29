@@ -40,7 +40,7 @@ And each of these methods has the same options:
 - `styleCursorOnInit` is a **required** attribute used to set the style of cursor pointer when the default animation is activated, default value is `"wait"`
 - `timerLimit` is a **required** attribute used to define a timer limit of capturation on each trail
 
-See usage examples [here](https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader/tree/master/examples)!
+**See usage examples [here](https://github.com/AndersonFriaca/jQuery-Magnetic-Card-Reader/tree/master/examples)!**
 
 # Contributing
 
@@ -57,7 +57,7 @@ grunt test  # Lint code and run test suite on scenarios
 grunt build # Generate the release files
 ```
 
-This plugin is tested with [QUnit](http://qunitjs.com/), under jQuery 1.7 up to 3.1 and RequireJS.
+This plugin is tested with [QUnit](http://qunitjs.com/), under jQuery 1.7 up to 3.3 and RequireJS.
 
 # Contributors
 

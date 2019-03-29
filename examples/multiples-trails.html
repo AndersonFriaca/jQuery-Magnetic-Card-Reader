@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="author" content="Anderson Friaça, Christoffer Genova" />
+    <title>Magnetic Card Reader</title>
+  </head>
+  <body>
+    <form id="form">
+      <label for="card">Input Card: </label>
+      <input name="card" id="card" />
+      <br />
+      <label for="another">Another field: </label>
+      <input name="another" id="another" />
+      <br />
+      <button type="submit">Send</button>
+    </form>
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-1.7.2.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../src/jquery.magnetic-card-reader.js"
+    ></script>
+    <script type="text/javascript">
+      $('#card')
+        .magneticCardReader({
+          regExpFirstTrail: new RegExp(/(%(.*)\?)$/),
+          regExpSecondTrail: new RegExp(
+            /(;(\d{11,16})=\d{1,}=\d{1}=\d{2}\?)?$/
+          ),
+          buildDataFirstTrail: function(trail) {
+          var pattern = new RegExp(/(?:%(.*)\?)$/);
+          var match = trail.match(pattern);
+          if (match === null || match[1] === undefined) {
+            return null;
+          } else {
+            return match[1];
+          }
+        },
+          buildDataSecondTrail: function(trail) {
+            var pattern = new RegExp(/(?:;(\d{11,16})=\d{1,}=\d{1}=\d{2}\?)?$/);
+            var match = trail.match(pattern);
+            if (match === null || match[1] === undefined) {
+              return null;
+            } else {
+              return match[1];
+            }
+          },
+          callback: function(e, first, second, third) {
+            console.log(first);
+            console.log(second);
+          }
+        })
+        .focus()
+        .val('');
+    </script>
+  </body>
+</html>

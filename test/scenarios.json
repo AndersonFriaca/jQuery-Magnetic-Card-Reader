@@ -9,6 +9,7 @@
   "jquery-2.2": ["test/vendor/jquery-2.2/dist/jquery.min.js"],
   "jquery-3.0": ["test/vendor/jquery-3.0/dist/jquery.min.js"],
   "jquery-3.1": ["test/vendor/jquery-3.1/dist/jquery.min.js"],
+  "jquery-3.3": ["test/vendor/jquery-3.3/dist/jquery.min.js"],
   "jquery": ["test/vendor/jquery/dist/jquery.min.js"],
   "requirejs": "test/integration/karma.conf.js"
 }
