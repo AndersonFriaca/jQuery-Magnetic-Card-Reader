@@ -143,7 +143,7 @@
     },
 
     searchParentForm: function() {
-      var form = this.element.parent('form');
+      var form = this.element.closest('form');
       if (form.length) {
         return form;
       }
