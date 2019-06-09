@@ -1,6 +1,6 @@
 {
   "name": "jquery-magnetic-card-reader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A jQuery Plugin to read magnetic cards of 1, 2 and 3 trails",
   "main": "./dist/jquery.magnetic-card-reader.js",
   "authors": [
